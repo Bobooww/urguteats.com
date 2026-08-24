@@ -1,0 +1,92 @@
+name: InKind guard
+# Keeps the InKind loader on every HTML route of this site and watches the
+# other production domains. Self-heals: if a publish drops the loader, this
+# workflow injects it back and pushes. Owner requirement (Shams, 2026-08-24):
+# every restaurant site must carry https://inkindscript.com/inkind.js.
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: inkind-guard
+  cancel-in-progress: false
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Ensure exactly one InKind loader per HTML head
+        id: fix
+        shell: python
+        run: |
+          import glob, os, re
+
+          TAG = '<script src="https://inkindscript.com/inkind.js" async></script>'
+          TAG_RE = re.compile(r'<script[^>]*src="https://inkindscript\.com/inkind\.js"[^>]*>\s*</script>')
+          changed = []
+          for path in sorted(glob.glob('**/*.html', recursive=True)):
+              if path.startswith('.git' + os.sep) or (os.sep + '.git' + os.sep) in path:
+                  continue
+              with open(path, encoding='utf-8') as fh:
+                  s = fh.read()
+              head_end = s.lower().find('</head>')
+              if head_end < 0:
+                  print(f'skip (no </head>): {path}')
+                  continue
+              doc_tags = TAG_RE.findall(s)
+              head = s[:head_end]
+              head_tags = TAG_RE.findall(head)
+              orig = s
+              if len(doc_tags) == 0:
+                  s = s[:head_end] + TAG + s[head_end:]
+                  print(f'inject: {path}')
+              elif len(head_tags) > 1:
+                  first = TAG_RE.search(head)
+                  keep_end = first.end()
+                  s = head[:keep_end] + TAG_RE.sub('', head[keep_end:]) + s[head_end:]
+                  print(f'dedupe head ({len(head_tags)} -> 1): {path}')
+              if s != orig:
+                  with open(path, 'w', encoding='utf-8') as fh:
+                      fh.write(s)
+                  changed.append(path)
+          print(f'changed={len(changed)}')
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
+              fh.write('changed=' + ('true' if changed else 'false') + '\n')
+
+      - name: Commit and push the restored loader
+        if: steps.fix.outputs.changed == 'true'
+        run: |
+          git config user.name "inkind-guard"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git commit -m "InKind guard: restore loader on all HTML routes"
+          for i in 1 2 3 4 5; do
+            if git push; then exit 0; fi
+            git pull --rebase || exit 1
+            sleep 5
+          done
+          echo "::error::could not push the InKind fix after retries"
+          exit 1
+
+      - name: Verify the loader on all live production domains
+        if: github.event_name != 'push'
+        run: |
+          fail=0
+          for d in eatpadishah.com eatsamarkandcity.com urguteats.com; do
+            n=$(curl -sS --max-time 25 "https://$d/?cb=$(date +%s)" | grep -c 'inkindscript.com/inkind.js' || true)
+            echo "$d homepage loader count: $n"
+            if [ "$n" -eq 0 ]; then
+              echo "::error::InKind loader is MISSING on live https://$d - check that repo's guard and recent publishes"
+              fail=1
+            fi
+          done
+          exit $fail
