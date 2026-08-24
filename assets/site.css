@@ -402,7 +402,7 @@ h1, h2, h3 {
 .site-foot { border-top: 1px solid var(--line-soft); padding-block: clamp(48px, 7vw, 72px) 36px; }
 .site-foot__grid {
   display: grid;
-  grid-template-columns: 1.2fr 1fr 1fr;
+  grid-template-columns: 1.2fr 1fr 1fr 1fr;
   gap: clamp(28px, 4vw, 56px);
   margin-bottom: 44px;
 }
@@ -461,4 +461,12 @@ h1, h2, h3 {
 @media (prefers-reduced-motion: reduce) {
   .bento__cell img, .bento__cell video { transition: none; }
   .btn { transition: none; }
+}
+
+/* ---------- Sariq Bola monogram ---------- */
+
+.frame--sb svg {
+  width: min(58%, 260px);
+  height: auto;
+  filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.5));
 }
