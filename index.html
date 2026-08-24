@@ -4,12 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#16130f" />
-    <title>URGUT TABLE | Urgut Afsona + Urgut Osh Markazi in Brooklyn</title>
-    <meta name="description" content="A shared home for Urgut Afsona and Urgut Osh Markazi in Brooklyn. Real plov, samsa and tandir bread. Choose your location for calls, directions and menus." />
+    <title>URGUT TABLE | Urgut Afsona, Urgut Osh Markazi + Sariq Bola Pizza in Brooklyn</title>
+    <meta name="description" content="A shared home for Urgut Afsona, Urgut Osh Markazi and Sariq Bola Pizza in Brooklyn. Real plov, samsa, tandir bread and halal pizza. Choose your location for calls, directions and menus." />
     <meta name="robots" content="index, follow" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="URGUT TABLE · Two Uzbek kitchens in Brooklyn" />
-    <meta property="og:description" content="Urgut Afsona on Ditmas Avenue and Urgut Osh Markazi on Coney Island Avenue. Plov, samsa and tandir bread, every day." />
+    <meta property="og:title" content="URGUT TABLE · Three kitchens in Brooklyn" />
+    <meta property="og:description" content="Urgut Afsona, Urgut Osh Markazi and Sariq Bola Pizza. Plov, samsa, tandir bread and halal pies, every day." />
     <meta property="og:url" content="https://urguteats.com/" />
     <meta property="og:image" content="https://urguteats.com/media/plov-1600.webp" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -67,11 +67,78 @@
           "opens": "06:00",
           "closes": "23:00"
         }]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Restaurant",
+        "name": "Sariq Bola Pizza",
+        "servesCuisine": "Pizza",
+        "telephone": "+1-347-668-3199",
+        "url": "https://urguteats.com/locations/sariq-bola/",
+        "sameAs": ["https://sariqbolapizza.com/"],
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "3001 Avenue U",
+          "addressLocality": "Brooklyn",
+          "addressRegion": "NY",
+          "postalCode": "11229",
+          "addressCountry": "US"
+        },
+        "openingHoursSpecification": [{
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+          "opens": "10:00",
+          "closes": "23:00"
+        }]
       }
     ]
     </script>
   </head>
   <body>
+    <div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle" hidden>
+      <div class="gate__inner">
+        <p class="gate__kicker">Urgut Table · Brooklyn</p>
+        <h2 class="gate__title" id="gateTitle">Where are you eating today?</h2>
+        <p class="gate__sub">Three kitchens, three corners of Brooklyn. Pick yours and the site follows.</p>
+        <div class="gate__choices">
+          <button type="button" class="gate-card" data-loc="afsona">
+            <span class="gate-card__media gate-card__media--mark" aria-hidden="true">
+              <img src="/media/afsona-mark.webp" alt="" width="600" height="588" loading="lazy" />
+            </span>
+            <span class="gate-card__body">
+              <span class="gate-card__name">Urgut Afsona</span>
+              <span class="gate-card__street">414 Ditmas Ave · Uzbek table</span>
+              <span class="status" data-open="480" data-close="1410" data-until="11:30 PM" data-from="8 AM"><i aria-hidden="true"></i><span>Daily, 8 AM to 11:30 PM</span></span>
+            </span>
+            <span class="gate-card__line" aria-hidden="true"></span>
+          </button>
+          <button type="button" class="gate-card" data-loc="osh-markazi">
+            <span class="gate-card__media" aria-hidden="true">
+              <img src="/media/kazan-800.webp" alt="" width="800" height="803" loading="lazy" />
+            </span>
+            <span class="gate-card__body">
+              <span class="gate-card__name">Urgut Osh Markazi</span>
+              <span class="gate-card__street">816 Coney Island Ave · plov center</span>
+              <span class="status" data-open="360" data-close="1380" data-until="11 PM" data-from="6 AM"><i aria-hidden="true"></i><span>Daily, 6 AM to 11 PM</span></span>
+            </span>
+            <span class="gate-card__line" aria-hidden="true"></span>
+          </button>
+          <button type="button" class="gate-card" data-loc="sariq-bola">
+            <span class="gate-card__media" aria-hidden="true">
+              <img src="/media/sariq-pizza-800.webp" alt="" width="800" height="552" loading="lazy" />
+            </span>
+            <span class="gate-card__body">
+              <span class="gate-card__name">Sariq Bola Pizza</span>
+              <span class="gate-card__street">3001 Avenue U · halal pizza</span>
+              <span class="status" data-open="600" data-close="1380" data-until="11 PM" data-from="10 AM"><i aria-hidden="true"></i><span>Daily, 10 AM to 11 PM</span></span>
+            </span>
+            <span class="gate-card__line" aria-hidden="true"></span>
+          </button>
+        </div>
+        <button type="button" class="gate__skip">Just browsing<span aria-hidden="true"> &rarr;</span></button>
+      </div>
+    </div>
+
     <header class="site-head">
       <div class="shell site-head__row">
         <a class="brand" href="/">Urgut Table <small>Brooklyn</small></a>
@@ -80,7 +147,13 @@
           <a href="#food">Food</a>
           <a href="#visit">Visit</a>
         </nav>
-        <a class="btn btn--gold btn--small" href="#locations">Choose a location</a>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <button type="button" class="head-chip" id="headChip" data-open-gate aria-label="Change your location">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span></span>
+          </button>
+          <a class="btn btn--gold btn--small" id="headCta" href="#locations" data-open-gate>Choose a location</a>
+        </div>
       </div>
     </header>
 
@@ -88,13 +161,13 @@
       <section class="hero">
         <div class="shell hero__grid">
           <div data-hero-copy>
-            <h1>Two Uzbek kitchens.<br />One Brooklyn <em>table</em>.</h1>
+            <h1>Three kitchens.<br />One Brooklyn <em>table</em>.</h1>
             <p class="hero__sub">
-              Urgut Afsona on Ditmas Avenue and Urgut Osh Markazi on Coney Island
-              Avenue. Plov, samsa and tandir bread, every day.
+              Urgut Afsona and Urgut Osh Markazi with the Uzbek classics, and
+              Sariq Bola Pizza on Avenue U. Every day.
             </p>
             <div class="hero__cta">
-              <a class="btn btn--gold" href="#locations">Choose a location</a>
+              <a class="btn btn--gold" href="#locations" data-open-gate>Choose a location</a>
               <a class="btn btn--line" href="#food">See the food</a>
             </div>
           </div>
@@ -119,10 +192,10 @@
         <div class="shell">
           <div class="section__head" data-reveal>
             <h2>Choose your table</h2>
-            <p>Two independent kitchens share the Urgut name. Pick the one closest to you.</p>
+            <p>Two Uzbek kitchens and a halal pizza counter. Pick the one closest to you.</p>
           </div>
 
-          <article class="loc-row" data-reveal>
+          <article class="loc-row" id="loc-afsona" data-reveal>
             <div class="loc-row__media">
               <div class="frame frame--mark">
                 <img src="/media/afsona-mark.webp" alt="Urgut Afsona gold medallion mark, supplied by the owner" width="600" height="588" loading="lazy" />
@@ -144,7 +217,7 @@
             </div>
           </article>
 
-          <article class="loc-row loc-row--flip" data-reveal>
+          <article class="loc-row loc-row--flip" id="loc-osh-markazi" data-reveal>
             <div>
               <h3>Urgut Osh Markazi</h3>
               <p class="loc-row__street">816 Coney Island Ave, Brooklyn, NY 11218</p>
@@ -176,6 +249,42 @@
               </div>
             </div>
           </article>
+
+          <article class="loc-row loc-row--wide" id="loc-sariq-bola" data-reveal>
+            <div>
+              <h3>Sariq Bola Pizza</h3>
+              <p class="loc-row__street">3001 Avenue U, Brooklyn, NY 11229</p>
+              <p class="status" data-open="600" data-close="1380" data-until="11 PM" data-from="10 AM"><i aria-hidden="true"></i><span>Daily · 10 AM to 11 PM</span></p>
+              <div class="loc-row__facts">
+                <p><strong>Hours</strong> Daily, 10:00 AM to 11:00 PM</p>
+                <p><strong>Kitchen</strong> 100% halal pizza, lavash Monster wraps and golden sides, with the Cosmic Blast as the house signature</p>
+              </div>
+              <div class="loc-row__actions">
+                <a class="btn btn--gold" href="tel:+13476683199">Call (347) 668-3199</a>
+                <a class="btn btn--line" href="https://www.google.com/maps/search/?api=1&amp;query=Sariq%20Bola%20Pizza%2C%203001%20Avenue%20U%2C%20Brooklyn%2C%20NY%2011229" target="_blank" rel="noopener">Directions</a>
+                <a class="text-link" href="/locations/sariq-bola/">Details<span aria-hidden="true">&rarr;</span></a>
+              </div>
+            </div>
+            <div class="loc-row__media media-duo">
+              <div class="frame">
+                <video
+                  data-ambient
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                  poster="/media/sariq-pizza-800.webp"
+                  width="1114" height="768"
+                  aria-label="Pepperoni pizza on a wooden board, steaming, filmed from a photograph by Sariq Bola Pizza">
+                  <source src="/media/loop-pizza.mp4" type="video/mp4" />
+                </video>
+              </div>
+              <div class="frame frame--tile">
+                <img src="/media/sariq-wraps-1344.webp" alt="Two Monster lavash wraps in checkered paper from Sariq Bola Pizza" width="1344" height="926" loading="lazy" />
+              </div>
+            </div>
+          </article>
         </div>
       </section>
 
@@ -183,7 +292,7 @@
         <div class="shell">
           <div class="section__head" data-reveal>
             <h2>Rice, fire, dough, time</h2>
-            <p>Photographs and film from the Urgut Osh Markazi kitchen.</p>
+            <p>Photographs and film from the Urgut Osh Markazi kitchen and the Sariq Bola pizza counter. Tap any dish to look closer.</p>
           </div>
           <div class="bento" data-reveal-group>
             <figure class="bento__cell bento__cell--w7">
@@ -201,29 +310,63 @@
                   <source src="/media/loop-samsa.mp4" type="video/mp4" />
                 </video>
               </div>
-              <figcaption>Meat samsa</figcaption>
+              <figcaption>Meat samsa · Osh Markazi</figcaption>
             </figure>
             <figure class="bento__cell bento__cell--w5">
               <div class="bento__media">
-                <img src="/media/bread-1600.webp" alt="Freshly baked tandir breads from Urgut Osh Markazi" width="1600" height="1078" loading="lazy" />
+                <video
+                  data-ambient
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                  poster="/media/bread-800.webp"
+                  width="1140" height="768"
+                  aria-label="Freshly baked tandir breads, steaming, filmed from a photograph by Urgut Osh Markazi">
+                  <source src="/media/loop-bread.mp4" type="video/mp4" />
+                </video>
               </div>
-              <figcaption>Tandir breads</figcaption>
+              <figcaption>Tandir breads · Osh Markazi</figcaption>
             </figure>
             <figure class="bento__cell bento__cell--w6">
               <div class="bento__media">
                 <img src="/media/kofte-1600.webp" alt="Kofta with herbs from Urgut Osh Markazi" width="1600" height="1613" loading="lazy" />
               </div>
-              <figcaption>Kofta</figcaption>
+              <figcaption>Kofta · Osh Markazi</figcaption>
             </figure>
             <figure class="bento__cell bento__cell--w6">
               <div class="bento__media">
                 <img src="/media/shorba-1600.webp" alt="Shorpa soup with lamb and vegetables from Urgut Osh Markazi" width="1600" height="1611" loading="lazy" />
               </div>
-              <figcaption>Shorpa</figcaption>
+              <figcaption>Shorpa · Osh Markazi</figcaption>
+            </figure>
+            <figure class="bento__cell bento__cell--w5">
+              <div class="bento__media">
+                <video
+                  data-ambient
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                  poster="/media/sariq-pizza-800.webp"
+                  width="1114" height="768"
+                  aria-label="Pepperoni pizza on a wooden board, steaming, filmed from a photograph by Sariq Bola Pizza">
+                  <source src="/media/loop-pizza.mp4" type="video/mp4" />
+                </video>
+              </div>
+              <figcaption>Pepperoni · Sariq Bola</figcaption>
+            </figure>
+            <figure class="bento__cell bento__cell--w7">
+              <div class="bento__media">
+                <img src="/media/sariq-pizzas-1000.webp" alt="Three pizzas on wooden boards from Sariq Bola Pizza" width="1017" height="1018" loading="lazy" />
+              </div>
+              <figcaption>The boards · Sariq Bola</figcaption>
             </figure>
           </div>
           <div class="food__note" data-reveal>
-            <p>Every image here identifies Urgut Osh Markazi; Urgut Afsona posts its own kitchen on Instagram.</p>
+            <p>Dish images identify their own kitchen; Urgut Afsona posts its food on Instagram.</p>
             <a class="text-link" href="https://urgutplovcenter.com/menu" target="_blank" rel="noopener">Browse the Osh Markazi menu<span aria-hidden="true">&rarr;</span></a>
           </div>
         </div>
@@ -269,13 +412,38 @@
               <a href="https://urgutplovcenter.com/menu" target="_blank" rel="noopener">urgutplovcenter.com</a>
             </address>
           </div>
+          <div>
+            <h4>Sariq Bola Pizza</h4>
+            <address>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=Sariq%20Bola%20Pizza%2C%203001%20Avenue%20U%2C%20Brooklyn%2C%20NY%2011229" target="_blank" rel="noopener">3001 Avenue U, Brooklyn, NY 11229</a>
+              <a href="tel:+13476683199">(347) 668-3199</a>
+              <span>Daily, 10:00 AM to 11:00 PM</span>
+              <a href="https://sariqbolapizza.com" target="_blank" rel="noopener">sariqbolapizza.com</a>
+            </address>
+          </div>
         </div>
         <div class="site-foot__meta">
           <p>&copy; 2026 Urgut Table, Brooklyn</p>
-          <p>Dish photography and film: Urgut Osh Markazi. Afsona medallion supplied by the owner.</p>
+          <p>Dish photography and film: Urgut Osh Markazi and Sariq Bola Pizza. Afsona medallion supplied by the owner.</p>
         </div>
       </div>
     </footer>
+
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Dish viewer" hidden>
+      <figure>
+        <div class="lightbox__media"></div>
+        <figcaption></figcaption>
+      </figure>
+      <button type="button" class="lightbox__btn lightbox__btn--prev" aria-label="Previous dish">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+      <button type="button" class="lightbox__btn lightbox__btn--next" aria-label="Next dish">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+      </button>
+      <button type="button" class="lightbox__btn lightbox__btn--close" aria-label="Close viewer">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
 
     <script src="/assets/vendor/gsap.min.js" defer></script>
     <script src="/assets/vendor/ScrollTrigger.min.js" defer></script>
